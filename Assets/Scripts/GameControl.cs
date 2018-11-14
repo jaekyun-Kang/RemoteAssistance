@@ -21,7 +21,7 @@ public class GameControl : MonoBehaviour {
 	public GameObject boxPower;
 
 	private string text;
-	private int sequence = -1;
+	private int sequence = 0;
 
 	/*
 	public enum TextManager
@@ -57,22 +57,33 @@ public class GameControl : MonoBehaviour {
 
 	void Update(){
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			if (sequence == -1) {
-				Debug.Log (textList["requireScan"]);
-			} else if (sequence == 0) {
-				Debug.Log (textList["scanComplete"]);
-			} else if (sequence == 1) {
-				Debug.Log (textList["plugHDMI"]);
-			} else if (sequence == 2) {
-				Debug.Log (textList["completeHDMI"]);
-			} else if (sequence == 3) {
-				Debug.Log (textList["plugPOWER"]);
-			} else if (sequence == 4) {
-				Debug.Log (textList["completePower"]);
-			} else if (sequence == 5) {
-				Debug.Log (textList["setupDone"]);
-			}
 			sequence++;
+			if (sequence > 7) {
+				sequence = 1;
+			}
+			if (sequence == 1) {
+				Debug.Log (textList["requireScan"]);
+				text = textList ["requireScan"];
+			} else if (sequence == 2) {
+				Debug.Log (textList["scanComplete"]);
+				text = textList ["scanComplete"];
+			} else if (sequence == 3) {
+				Debug.Log (textList["plugHDMI"]);
+				text = textList ["plugHDMI"];
+			} else if (sequence == 4) {
+				Debug.Log (textList["completeHDMI"]);
+				text = textList ["completeHDMI"];
+			} else if (sequence == 5) {
+				Debug.Log (textList["plugPOWER"]);
+				text = textList ["plugPOWER"];
+			} else if (sequence == 6) {
+				Debug.Log (textList["completePower"]);
+				text = textList ["completePower"];
+			} else if (sequence == 7) {
+				Debug.Log (textList["setupDone"]);
+				text = textList ["setupDone"];
+			}
+			text1.GetComponent<Text> ().text = text;
 
 		}
 
