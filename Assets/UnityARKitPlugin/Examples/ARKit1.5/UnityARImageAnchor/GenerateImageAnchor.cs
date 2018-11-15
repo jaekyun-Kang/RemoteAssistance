@@ -37,6 +37,15 @@ public class GenerateImageAnchor : MonoBehaviour {
 		}
 	}
 
+	/*
+	public void ShowHDMIBOX(){
+		imageAnchorGO.GetComponent<GameControl> ().SetActiveHDMI (true);
+	}
+
+	public void ShowPowerBOX(){
+		imageAnchorGO.GetComponent<GameControl> ().SetActivePower (true);
+	}
+*/
 	void UpdateImageAnchor(ARImageAnchor arImageAnchor)
 	{
 		Debug.LogFormat("image anchor updated[{0}] : tracked => {1}", arImageAnchor.identifier, arImageAnchor.isTracked);

@@ -25,20 +25,20 @@ public class UnityARCameraManager : MonoBehaviour {
     public ARReferenceObjectsSetAsset detectionObjects = null;
     private bool sessionStarted = false;
 
-    public ARKitWorldTrackingSessionConfiguration sessionConfiguration
-    {
-        get
-        {
-            ARKitWorldTrackingSessionConfiguration config = new ARKitWorldTrackingSessionConfiguration ();
-            config.planeDetection = planeDetection;
-            config.alignment = startAlignment;
-            config.getPointCloudData = getPointCloud;
-            config.enableLightEstimation = enableLightEstimation;
-            config.enableAutoFocus = enableAutoFocus;
-            config.maximumNumberOfTrackedImages = maximumNumberOfTrackedImages;
-            config.environmentTexturing = environmentTexturing;
-            if (detectionImages != null)
-                config.referenceImagesGroupName = detectionImages.resourceGroupName;
+	public ARKitWorldTrackingSessionConfiguration sessionConfiguration
+	{
+		get
+		{
+			ARKitWorldTrackingSessionConfiguration config = new ARKitWorldTrackingSessionConfiguration ();
+			config.planeDetection = planeDetection;
+			config.alignment = startAlignment;
+			config.getPointCloudData = getPointCloud;
+			config.enableLightEstimation = enableLightEstimation;
+			config.enableAutoFocus = enableAutoFocus;
+			config.maximumNumberOfTrackedImages = maximumNumberOfTrackedImages;
+			config.environmentTexturing = environmentTexturing;
+			if (detectionImages != null)
+				config.referenceImagesGroupName = detectionImages.resourceGroupName;
 
 			if (detectionObjects != null) 
 			{
@@ -46,27 +46,27 @@ public class UnityARCameraManager : MonoBehaviour {
 				config.dynamicReferenceObjectsPtr = m_session.CreateNativeReferenceObjectsSet(detectionObjects.LoadReferenceObjectsInSet());
 			}
 
-            return config;
-        }
-    }
+			return config;
+		}
+	}
 
-    // Use this for initialization
-    void Start () {
+	// Use this for initialization
+	void Start () {
 
-        m_session = UnityARSessionNativeInterface.GetARSessionNativeInterface();
+		m_session = UnityARSessionNativeInterface.GetARSessionNativeInterface();
 
-        Application.targetFrameRate = 60;
-        
-        var config = sessionConfiguration;
-        if (config.IsSupported) {
-            m_session.RunWithConfig (config);
-            UnityARSessionNativeInterface.ARFrameUpdatedEvent += FirstFrameUpdate;
-        }
+		Application.targetFrameRate = 60;
 
-        if (m_camera == null) {
-            m_camera = Camera.main;
-        }
-    }
+		var config = sessionConfiguration;
+		if (config.IsSupported) {
+			m_session.RunWithConfig (config);
+			UnityARSessionNativeInterface.ARFrameUpdatedEvent += FirstFrameUpdate;
+		}
+
+		if (m_camera == null) {
+			m_camera = Camera.main;
+		}
+	}
 
     void FirstFrameUpdate(UnityARCamera cam)
     {
