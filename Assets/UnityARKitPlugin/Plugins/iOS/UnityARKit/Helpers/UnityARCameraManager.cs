@@ -67,6 +67,24 @@ public class UnityARCameraManager : MonoBehaviour {
 			m_camera = Camera.main;
 		}
 	}
+	public void RestartAR(){
+
+		m_session = UnityARSessionNativeInterface.GetARSessionNativeInterface();
+
+		Application.targetFrameRate = 60;
+
+		var config = sessionConfiguration;
+		if (config.IsSupported) {
+			m_session.RunWithConfig (config);
+			UnityARSessionNativeInterface.ARFrameUpdatedEvent += FirstFrameUpdate;
+		}
+
+		if (m_camera == null) {
+			m_camera = Camera.main;
+		}
+
+	}
+
 
     void FirstFrameUpdate(UnityARCamera cam)
     {

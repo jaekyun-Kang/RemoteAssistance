@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.iOS;
 
 public class UIControl : MonoBehaviour {
 
@@ -57,11 +58,20 @@ public class UIControl : MonoBehaviour {
 	}
 
 	public void OnResetButtonClicked(){
+		//Destroy (GameObject.Find ("parent"));
+		ResetScene ();
 
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		isHDMIClicked = false;
+		isPowerClicked = false;
+		flagForDetection = false;
+		GameObject.Find ("GenerateImageAnchorCube").GetComponent<GenerateImageAnchor> ().isObjectDetected = false;
+
+		GameObject.Find ("ARCameraManager").GetComponent<UnityARCameraManager> ().RestartAR ();
+
+		ShowIntro ();
+		//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		//isResetClicked = true;
 
-		//flagForDetection = false;
 		//AllClear ();
 		//ShowIntro ();
 	}
@@ -110,4 +120,8 @@ public class UIControl : MonoBehaviour {
 
 	}
 
+	public void ResetScene() {
+		ARKitWorldTrackingSessionConfiguration sessionConfig = new ARKitWorldTrackingSessionConfiguration ( UnityARAlignment.UnityARAlignmentGravity, UnityARPlaneDetection.Horizontal);
+		UnityARSessionNativeInterface.GetARSessionNativeInterface().RunWithConfigAndOptions(sessionConfig, UnityARSessionRunOption.ARSessionRunOptionRemoveExistingAnchors | UnityARSessionRunOption.ARSessionRunOptionResetTracking);
+	}
 }
